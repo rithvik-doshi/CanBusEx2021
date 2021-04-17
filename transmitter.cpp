@@ -1,8 +1,10 @@
 #include <iostream>
 #include <math.h>
 #include <string>
+#include <fstream>
 using std::cout;
 using std::string;
+
 
 int main(int argc, char **argv){
 	int num;
@@ -22,18 +24,23 @@ int main(int argc, char **argv){
 		bin = (num%2==0?"0":"1")+bin;
 		num/=2;
 	}
-	int binnum = stoi(bin);
+	//int binnum = stoi(bin);
 
 	// cout << binnum << "\n";
 
-	string SOF = "0";
-	string ID = new char[11];
+	string SOF = "0"; //look up
+	string ID = "00100110010"
 	string RTR = "1";
-	string control = new char[6];
+	string control = "000000"
 	string data = bin;
 	string CRC = "0000000000000000";
 	string ACK = "00";
-	string EOF = new char[7];
+	string EOF = "0000000"
+
+	string CAN_message = SOF+ID+RTR+control+data+CRC+ACK+EOF;
+
+	std::ifstream file("can_buffer.txt");
+	
 
 	return 0;
 }

@@ -5,6 +5,7 @@
 using std::cout;
 using std::string;
 using std::to_string;
+using std::ofstream;
 
 string inttobin(long int num){
 	string bin;
@@ -24,22 +25,25 @@ int main(int argc, char **argv){
 	while (len.size() < 4){
 		len = "0"+len;
 	}
-	//int binnum = stoi(bin);
-
-	// cout << binnum << "\n";
 
 	string StartOF = "0"; //Dominant Bit detected
 	string ID = "00100110010";
 	string RTR = "1";
-	string control = ",00"+len+","; //length of data
-	string data = bin+",";
+	string control = "00"+len; //length of data
+	string data = bin;
 	string CRC = "0000000000000000";
 	string ACK = "11"; //ACK Slot: transmitter sends recessive and receiver asserts dominant, ACK delimited always recessive;
-	string EndOF = "1111111";
+	string EndOF = "1111111"; // all recessive
 
 	string CAN_message = StartOF+ID+RTR+control+data+CRC+ACK+EndOF;
 
 	cout << CAN_message << "\n";
+
+	ofstream out;
+	out.open("can_buffer.txt");
+	out << CAN_message;
+	out.close();
+
 
 	//std::ifstream file("can_buffer.txt");
 
